@@ -44,12 +44,13 @@ const Navbar = () => {
                     <MenuItem onClick={() => handleMenuItemClick('/')}>
                         <ListItemText primary="Home" primaryTypographyProps={{ variant: 'subtitle1' }} />
                     </MenuItem>
-                    <MenuItem onClick={() => handleMenuItemClick('/about')}>
-                        <ListItemText primary="About" primaryTypographyProps={{ variant: 'subtitle1' }} />
-                    </MenuItem>
                     <MenuItem onClick={() => handleMenuItemClick('/multidimensionalstackup')}>
                         <ListItemText primary="Multi-Dimensional Stack-up" primaryTypographyProps={{ variant: 'subtitle1' }} />
                     </MenuItem>
+                    <MenuItem onClick={() => handleMenuItemClick('/about')}>
+                        <ListItemText primary="About" primaryTypographyProps={{ variant: 'subtitle1' }} />
+                    </MenuItem>
+                    
                     <Divider />
                     <Box sx={{ flexGrow: 1 }} />
                     <ListItem>
