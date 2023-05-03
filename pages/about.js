@@ -26,7 +26,7 @@ const About = () => {
           About Developer
         </Typography>
 
-        <Typography variant="body1" paragraph>s
+        <Typography variant="body1" paragraph>
           Dedicated and results-driven Mechanical Engineer with a proven track record in product design and development, specializing in automotive products, components, and machinery. Demonstrates exceptional project and program management skills, with a strong emphasis on data-driven modeling and artificial intelligence (AI), including machine learning (ML) applications.
         </Typography>
         <Typography variant="body1" paragraph>
