@@ -39,6 +39,10 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
+const MainContentContainer = styled('div')(({ theme }) => ({
+  paddingBottom: theme.spacing(7), // Adjust according to the height of your BottomNavigation bar
+}));
+
 const Navbar = () => {
   const router = useRouter();
   const theme = useTheme();
@@ -55,6 +59,7 @@ const Navbar = () => {
   const listItems = [
     {text: 'Home', route: '/'},
     {text: 'Multi-Dimensional Stack-up', route: '/multidimensionalstackup'},
+    {text: 'Tolerance Guide', route: '/about-tolerance-stackup'},
     {text: 'About', route: '/about'},
   ];
   const list = () => (
@@ -104,11 +109,15 @@ const Navbar = () => {
               <StyledButton onClick={() => handleButtonClick('/multidimensionalstackup')}>
                 Multi-Dimensional Stack-up
               </StyledButton>
+              <StyledButton onClick={() => handleButtonClick('/about-tolerance-stackup')}>
+              Tolernace Guide
+              </StyledButton>
               <StyledButton onClick={() => handleButtonClick('/about')}>About</StyledButton>
             </CenteredBox>
           )}
         </Toolbar>
       </AppBar>
+      
       <BottomNavigation showLabels sx={{ width: '100%', position: 'fixed', bottom: 0 }}>
         <BottomNavigationAction
           sx={{ marginLeft: 'auto' }}

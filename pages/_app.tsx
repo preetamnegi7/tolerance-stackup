@@ -8,6 +8,12 @@ import Navbar from "../components/Navbar";
 import { useEffect } from "react";
 import * as gtag from "../utils/gtag"; // Import the gtag utility
 import Script from "next/script";
+import { styled } from '@mui/system';
+
+
+const MainContentContainer = styled('div')(({ theme }) => ({
+  paddingBottom: theme.spacing(7), // Adjust according to the height of your BottomNavigation bar
+}));
 
 const theme = createTheme();
 
@@ -70,10 +76,12 @@ function App({ Component, pageProps }: AppProps) {
   <meta itemProp="image" content="https://tolerancestackupcalculator.com/google-image.jpg" />
 </Head>
 
-      <ThemeProvider theme={theme}>
+<ThemeProvider theme={theme}>
         <Navbar />
         <CssBaseline />
-        <Component {...pageProps} />
+        <MainContentContainer>
+          <Component {...pageProps} />
+        </MainContentContainer>
       </ThemeProvider>
       {/* Google Analytics */}
       <Script

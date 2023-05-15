@@ -8,32 +8,42 @@ import Box from '@mui/material/Box';
 import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const ToleranceCalculator = () => {
-  const [hole, setHole] = useState(0);
-  const [holeDimensionalTolerancePlus, setHoleDimensionalTolerancePlus] = useState(0);
-  const [holeDimensionalToleranceMinus, setHoleDimensionalToleranceMinus] = useState(0);
-  const [shaft, setShaft] = useState(0);
-  const [shaftDimensionalTolerancePlus, setShaftDimensionalTolerancePlus] = useState(0);
-  const [shaftDimensionalToleranceMinus, setShaftDimensionalToleranceMinus] = useState(0);
+  const [hole, setHole] = useState("");
+  const [holeDimensionalTolerancePlus, setHoleDimensionalTolerancePlus] = useState("");
+  const [holeDimensionalToleranceMinus, setHoleDimensionalToleranceMinus] = useState("");
+  const [shaft, setShaft] = useState("");
+  const [shaftDimensionalTolerancePlus, setShaftDimensionalTolerancePlus] = useState("");
+  const [shaftDimensionalToleranceMinus, setShaftDimensionalToleranceMinus] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
-    setSubmitted(true);
+    if (isValidNumber(hole) && isValidNumber(holeDimensionalTolerancePlus) && isValidNumber(holeDimensionalToleranceMinus) && isValidNumber(shaft) && isValidNumber(shaftDimensionalTolerancePlus) && isValidNumber(shaftDimensionalToleranceMinus)) {
+      setSubmitted(true);
+    } else {
+      alert("Please enter valid numbers");
+    }
   };
+
   const handleReset = () => {
-    setHole(0);
-    setHoleDimensionalTolerancePlus(0);
-    setHoleDimensionalToleranceMinus(0);
-    setShaft(0);
-    setShaftDimensionalTolerancePlus(0);
-    setShaftDimensionalToleranceMinus(0);
+    setHole("");
+    setHoleDimensionalTolerancePlus("");
+    setHoleDimensionalToleranceMinus("");
+    setShaft("");
+    setShaftDimensionalTolerancePlus("");
+    setShaftDimensionalToleranceMinus("");
     setSubmitted(false);
   };
 
+  const isValidNumber = (str) => {
+    const reg = /^\d*\.?\d*$/;
+    return reg.test(str);
+  };
+
   const calculateInterferenceAndGap = () => {
-    const minHole = hole - holeDimensionalToleranceMinus;
-    const maxHole = hole + holeDimensionalTolerancePlus;
-    const minShaft = shaft - shaftDimensionalToleranceMinus;
-    const maxShaft = shaft + shaftDimensionalTolerancePlus;
+    const minHole = parseFloat(hole) - parseFloat(holeDimensionalToleranceMinus);
+    const maxHole = parseFloat(hole) + parseFloat(holeDimensionalTolerancePlus);
+    const minShaft = parseFloat(shaft) - parseFloat(shaftDimensionalToleranceMinus);
+    const maxShaft = parseFloat(shaft) + parseFloat(shaftDimensionalTolerancePlus);
 
     return {
       interferenceValue: maxShaft - minHole,
@@ -45,12 +55,14 @@ const ToleranceCalculator = () => {
 
   const CustomLabel = (props) => {
     const { x, y, value } = props;
+    const numberValue = Number(value);
     return (
       <text x={x} y={y} dy={-4} fill="#8884d8" fontSize={14} fontWeight="bold" textAnchor="middle">
-        {value.toFixed(2)}
+        {numberValue.toFixed(2)}
       </text>
     );
   };
+  
 
   return (
     <div>
@@ -58,24 +70,25 @@ const ToleranceCalculator = () => {
       <div>
             
       <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Typography variant="h6">Hole</Typography>
-          <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}>
-            <TextField label="Nominal" value={hole} onChange={(e) => setHole(parseFloat(e.target.value) || 0)} />
-            <TextField label="Tolerance (+)" value={holeDimensionalTolerancePlus} onChange={(e) => setHoleDimensionalTolerancePlus(parseFloat(e.target.value) || 0)} />
-            <TextField label="Tolerance (-)" value={holeDimensionalToleranceMinus} onChange={(e) => setHoleDimensionalToleranceMinus(parseFloat(e.target.value) || 0)} />
-          </Box>
-        </Grid>
+  <Grid item xs={6}>
+    <Typography variant="h6">Hole</Typography>
+    <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}>
+      <TextField type="text" label="Nominal" value={hole} onChange={(e) => isValidNumber(e.target.value) && setHole(e.target.value)} />
+      <TextField type="text" label="Tolerance (+)" value={holeDimensionalTolerancePlus} onChange={(e) => isValidNumber(e.target.value) && setHoleDimensionalTolerancePlus(e.target.value)} />
+      <TextField type="text" label="Tolerance (-)" value={holeDimensionalToleranceMinus} onChange={(e) => isValidNumber(e.target.value) && setHoleDimensionalToleranceMinus(e.target.value)} />
+    </Box>
+  </Grid>
 
-        <Grid item xs={6}>
-          <Typography variant="h6">Shaft</Typography>
-          <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}>
-            <TextField label="Nominal" value={shaft} onChange={(e) => setShaft(parseFloat(e.target.value) || 0)} />
-            <TextField label="Tolerance (+)" value={shaftDimensionalTolerancePlus} onChange={(e) => setShaftDimensionalTolerancePlus(parseFloat(e.target.value) || 0)} />
-            <TextField label="Tolerance (-)" value={shaftDimensionalToleranceMinus} onChange={(e) => setShaftDimensionalToleranceMinus(parseFloat(e.target.value) || 0)} />
-          </Box>
-        </Grid>
-      </Grid>
+  <Grid item xs={6}>
+    <Typography variant="h6">Shaft</Typography>
+    <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}>
+      <TextField type="text" label="Nominal" value={shaft} onChange={(e) => isValidNumber(e.target.value) && setShaft(e.target.value)} />
+      <TextField type="text" label="Tolerance (+)" value={shaftDimensionalTolerancePlus} onChange={(e) => isValidNumber(e.target.value) && setShaftDimensionalTolerancePlus(e.target.value)} />
+      <TextField type="text" label="Tolerance (-)" value={shaftDimensionalToleranceMinus} onChange={(e) => isValidNumber(e.target.value) && setShaftDimensionalToleranceMinus(e.target.value)} />
+    </Box>
+  </Grid>
+</Grid>
+
       </div>
 
       
